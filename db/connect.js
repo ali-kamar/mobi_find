@@ -6,7 +6,7 @@ const pool = new Pool({
   password: `${process.env.DATABASE_PASS}`,
   host: "localhost",
   port: 5432,
-  database: "shop",
+  database: "mobi_find",
 });
 
 module.exports = pool;
