@@ -7,7 +7,7 @@ const authorize = async (req, res, next) => {
     const jwtToken = req.headers.authorization;
 
     if (!jwtToken) {
-      return res.status(StatusCodes.FORBIDDEN).json("Not Authorize");
+      return res.status(StatusCodes.FORBIDDEN).json("Not Authorized");
     }
 
     const token = jwtToken.split(" ")[1];
@@ -20,7 +20,7 @@ const authorize = async (req, res, next) => {
     next();
   } catch (error) {
     console.error(error.message);
-    return res.status(StatusCodes.FORBIDDEN).json("Not Authorize");
+    return res.status(StatusCodes.FORBIDDEN).json("Not Authorized");
   }
 };
 

@@ -15,6 +15,7 @@ const userRouter = require("./routes/user");
 const adminRouter = require("./routes/admin");
 const globalRouter = require("./routes/global");
 const authenticate = require("./middleware/authentication");
+const checkAdmin = require("./middleware/admin-check");
 
 // error handler
 const notFoundMiddleware = require("./middleware/not-found");
@@ -37,7 +38,7 @@ app.set("trust proxy", 1);
 // routes
 app.use("/api/v1/auth", authenticationRouter);
 app.use("/api/v1/user", authenticate, userRouter);
-app.use("/api/v1/admin", authenticate, adminRouter);
+app.use("/api/v1/admin", authenticate, checkAdmin, adminRouter);
 app.use("/api/v1/global", globalRouter);
 
 // app.get('/', (req, res) => {
