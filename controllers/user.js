@@ -4,10 +4,16 @@ const { UserError, BadRequestError, NotFoundError } = require("../errors");
 
 const getAccount = async (req, res) => {
   const userId = req.params.id;
+  if(!userId) {
+    throw new BadRequestError("User ID not provided");
+  }
   const user = await pool.query(
     "SELECT user_email,user_name FROM users WHERE user_id = $1",
     [userId]
   );
+  if(user.rows.length === 0) {
+    throw new NotFoundError("User not found");
+  }
   let email = user.rows[0].user_email;
   let name = user.rows[0].user_name;
   res.status(StatusCodes.OK).json({ email, name });
@@ -17,6 +23,10 @@ const updateAccount = async (req, res) => {
   const userId = req.params.id;
   const { email, name } = req.body;
 
+  if(!userId) {
+    throw new BadRequestError("User ID not provided");
+  }
+  
   const fields = [];
   const values = [];
 
@@ -40,7 +50,7 @@ const updateAccount = async (req, res) => {
 
   // If no fields to update, throw an error
   if (fields.length === 0) {
-    return res.status(400).json({ message: "No data provided to update" });
+    throw new BadRequestError("No fields to update");
   }
 
   // Add userId as the last parameter

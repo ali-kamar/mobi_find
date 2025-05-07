@@ -7,6 +7,6 @@ const {getAllCategories} = require("../controllers/category")
 
 router.route("/product").get(getAllProducts);
 router.route("/product/:id").get(getProduct);
-router.route("/category/").get(getAllCategories);
+router.route("/category").get(getAllCategories);
 
 module.exports = router

@@ -4,7 +4,6 @@ const { UnauthenticatedError, BadRequestError } = require("../errors");
 const checkAdmin = async (req, res, next) => {
   try {
     const id = req.user;
-    console.log(typeof id);
     
     if (!id) {
       throw new BadRequestError("ID not provided");
@@ -20,9 +19,7 @@ const checkAdmin = async (req, res, next) => {
 
     req.admin = true;
     next();
-  } catch (error) {
-    console.log(error);
-    
+  } catch (error) {    
     next(error);
   }
 };
